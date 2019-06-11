@@ -12,6 +12,10 @@ class Hash
 public:
     int sumFiles=0;
     string hashFile;
+    char mode;
+    wchar_t folderPath[75];
+    wchar_t folderPath_1[75];
+    int folderPathLen;
     void readingFiles(string* files);
     void checkFiles(string* files);
 };
