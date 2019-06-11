@@ -29,6 +29,7 @@ void Hash::readingFiles(string* files){
         file << files[i]<< endl << h(fileData[i])<<endl;
     }
     file.close();
+    cout<<"Hashes saved"<<endl;
 }
 
 void Hash::checkFiles(string* files){
