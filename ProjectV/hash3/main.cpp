@@ -1,40 +1,35 @@
 #include "hash.h"
 
-
 int main(){
     setlocale(LC_ALL,"");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    //setlocale(LC_ALL,"Russian");
     Hash one;   //файл класса
-    char mode;
     cout<<"Reading or check (r/c)? ";
-    cin>>mode;
+    cin>>one.mode;
 
     WIN32_FIND_DATA FindFileData;
     HANDLE hf;
-    wchar_t folderPath[75];
-    wchar_t folderPath_1[75];
     cout<<"Enter path folder (example - c:\\Folder\\*): " << endl;
-    wcin >> folderPath;
-    int folderPathLen = wcslen(folderPath);
-    for(int i = 0; i < folderPathLen-1; i++) {
-        folderPath_1[i] = folderPath[i];
+    wcin >> one.folderPath;
+    one.folderPathLen = wcslen(one.folderPath);
+    for(int i = 0; i < one.folderPathLen-1; i++) {
+        one.folderPath_1[i] = one.folderPath[i];
     }
-    hf = FindFirstFile(folderPath, &FindFileData);
+    hf = FindFirstFile(one.folderPath, &FindFileData);
     wofstream fout("d:\\output.txt");
     if (hf != INVALID_HANDLE_VALUE)
     {
         do
         {
-            fout << folderPath_1 << FindFileData.cFileName << endl;
+            fout << one.folderPath_1 << FindFileData.cFileName << endl;
             one.sumFiles++;
 
         } while (FindNextFile(hf, &FindFileData) != 0);
         FindClose(hf);
     }
     fout.close();
-    //------------------------------------------
+    
     ifstream file("d:\\output.txt");
     one.sumFiles=one.sumFiles-2;
     cout << "Number of files - " << one.sumFiles << endl;
@@ -52,11 +47,11 @@ int main(){
     cout << endl;
     file.close();
 
-    if(mode == 'r'){
+    if(one.mode == 'r'){
         cout<<"Where save hashes? (example - c:\\Folder\\hash.txt)" << endl;
         cin>>one.hashFile;
         one.readingFiles(files);
-    }else if(mode == 'c'){
+    }else if(one.mode == 'c'){
         cout<<"Where read hashes? (example - c:\\Folder\\hash.txt)" << endl;
         cin>>one.hashFile;
         one.checkFiles(files);
